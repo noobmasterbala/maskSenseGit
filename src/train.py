@@ -23,9 +23,12 @@ def _set_determinism(seed: int) -> None:
     # Best-effort determinism. Some ops on some backends (incl. MPS) may still
     # be nondeterministic; we keep this minimal and stable.
     try:
-        torch.use_deterministic_algorithms(True)
+        torch.use_deterministic_algorithms(True, warn_only=True)
     except Exception:
-        pass
+        try:
+            torch.use_deterministic_algorithms(True)
+        except Exception:
+            pass
 
 
 def _make_dataloaders(
