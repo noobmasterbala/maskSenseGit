@@ -9,3 +9,9 @@ ASCAD_data/ASCAD_trained_models/cnn_best_ascad_desync100_epochs75_classes256_bat
 ASCAD_data/ASCAD_trained_models/cnn_best_ascad_desync50_epochs75_classes256_batchsize200.h5
 ASCAD_data/ASCAD_trained_models/mlp_best_ascad_desync0_node200_layernb6_epochs200_classes256_batchsize100.h5
 ASCAD_data/ASCAD_trained_models/mlp_best_ascad_desync100_node200_layernb6_epochs200_classes256_batchsize100.h5
+
+# Python virtual environments
+.venv/
+venv/
+env/
+ENV/

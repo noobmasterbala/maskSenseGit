@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import random
+import time
 from typing import Tuple
 
 import numpy as np
@@ -112,9 +113,14 @@ def train_model(
     best_path = os.path.join("results", "model_best.pt")
 
     for epoch in range(1, 101):
+        print(f"epoch {epoch} start", flush=True)
         model.train()
         train_loss_sum = 0.0
         train_count = 0
+
+        epoch_t0 = time.monotonic()
+        next_heartbeat = epoch_t0 + 60.0
+        n_train_samples = len(train_loader.dataset)
 
         for xb, yb in train_loader:
             xb = xb.to(device)
@@ -129,6 +135,16 @@ def train_model(
             bs = int(xb.shape[0])
             train_loss_sum += float(loss.detach().cpu().item()) * bs
             train_count += bs
+
+            now = time.monotonic()
+            if now >= next_heartbeat:
+                elapsed = now - epoch_t0
+                seen = train_count
+                print(
+                    f"epoch {epoch} progress {seen}/{n_train_samples} samples ({elapsed:.0f}s)",
+                    flush=True,
+                )
+                next_heartbeat = now + 60.0
 
         train_loss = train_loss_sum / max(train_count, 1)
 
@@ -148,7 +164,7 @@ def train_model(
 
         val_loss = val_loss_sum / max(val_count, 1)
 
-        print(f"{epoch} {train_loss:.6f} {val_loss:.6f}")
+        print(f"{epoch} {train_loss:.6f} {val_loss:.6f}", flush=True)
 
         if val_loss < best_val_loss:
             best_val_loss = val_loss

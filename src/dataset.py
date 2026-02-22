@@ -97,9 +97,6 @@ def load_ascad(path: str) -> Dict[str, np.ndarray]:
         profiling_plaintext, profiling_key = _read_plaintext_and_key(profiling_meta_ds)
         attack_plaintext, attack_key = _read_plaintext_and_key(attack_meta_ds)
 
-    print(profiling_traces.shape)
-    print(attack_traces.shape)
-
     return {
         "profiling_traces": profiling_traces,
         "profiling_plaintext": profiling_plaintext,
