@@ -15,3 +15,6 @@ ASCAD_data/ASCAD_trained_models/mlp_best_ascad_desync100_node200_layernb6_epochs
 venv/
 env/
 ENV/
+
+# Experiment outputs / run artifacts
+results/
